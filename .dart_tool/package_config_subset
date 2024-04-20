@@ -58,6 +58,10 @@ fixnum
 2.19
 file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/fixnum-1.1.0/
 file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/fixnum-1.1.0/lib/
+flutter_hsvcolor_picker
+2.16
+file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/flutter_hsvcolor_picker-1.5.0/
+file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/flutter_hsvcolor_picker-1.5.0/lib/
 flutter_lints
 2.19
 file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3/
@@ -102,6 +106,10 @@ geolocator_windows
 2.15
 file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/geolocator_windows-0.2.2/
 file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/geolocator_windows-0.2.2/lib/
+google_fonts
+2.14
+file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/google_fonts-6.1.0/
+file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/google_fonts-6.1.0/lib/
 google_maps
 2.12
 file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/google_maps-6.3.0/
@@ -130,6 +138,14 @@ html
 2.19
 file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/html-0.15.4/
 file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/html-0.15.4/lib/
+http
+3.2
+file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/http-1.2.0/
+file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/http-1.2.0/lib/
+http_parser
+2.12
+file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/http_parser-4.0.2/
+file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib/
 iconly
 2.12
 file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/iconly-1.0.1/

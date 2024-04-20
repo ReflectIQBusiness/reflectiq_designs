@@ -98,6 +98,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "flutter_hsvcolor_picker",
+      "rootUri": "file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/flutter_hsvcolor_picker-1.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3",
       "packageUri": "lib/",
@@ -176,6 +182,12 @@
       "languageVersion": "2.15"
     },
     {
+      "name": "google_fonts",
+      "rootUri": "file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/google_fonts-6.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "google_maps",
       "rootUri": "file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/google_maps-6.3.0",
       "packageUri": "lib/",
@@ -216,6 +228,18 @@
       "rootUri": "file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/html-0.15.4",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "http",
+      "rootUri": "file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/http-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "http_parser",
+      "rootUri": "file:///Users/asmaebriouya/.pub-cache/hosted/pub.dev/http_parser-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "iconly",
@@ -482,7 +506,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-04-15T20:35:13.820575Z",
+  "generated": "2024-04-18T20:28:32.818715Z",
   "generator": "pub",
   "generatorVersion": "3.2.6"
 }

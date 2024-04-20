@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:reflectiq_designs/screens/finance/main_page.dart';
-import 'package:reflectiq_designs/screens/maps_screen.dart';
-import 'package:reflectiq_designs/screens/piano.dart';
-import 'package:reflectiq_designs/screens/starting_screen.dart';
+import 'package:reflectiq_designs/screens/change_color.dart';
+import 'package:reflectiq_designs/screens/finetech/home.dart';
+import 'package:reflectiq_designs/screens/finetech/login.dart';
+import 'package:reflectiq_designs/screens/finetech/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,6 +22,6 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: 'Roboto',
         ),
-        home: const Piano());
+        home: const ChangeColor());
   }
 }
