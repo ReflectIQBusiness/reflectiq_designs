@@ -16,7 +16,7 @@ class _ChangeColorState extends State<ChangeColor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: isDark ? Color.fromARGB(255, 241, 233, 227) : Color(0xff1e2026),
+      backgroundColor: isDark ? const Color.fromARGB(255, 241, 233, 227) : const Color(0xff1e2026),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
