@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/sushi.dart';
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -42,7 +43,7 @@ class _CategoriesState extends State<Categories> with SingleTickerProviderStateM
           'https://img.freepik.com/photos-gratuite/cocktails-frais-glace-citron-citron-vert-fruits-ia-generative_188544-12370.jpg?size=626&ext=jpg&ga=GA1.1.2116175301.1714176000&semt=sph',
     },
     {
-      'name': 'Sushi',
+      'name': 'Sushi & Asian Cuisine',
       'image': 'https://img.freepik.com/photos-gratuite/peinture-sushi-assiette-photo-poisson-dessus_188544-12221.jpg',
     },
   ];
@@ -151,40 +152,48 @@ class _CategoriesState extends State<Categories> with SingleTickerProviderStateM
                 categories.length,
                 (index) {
                   double height = generateHeight();
-                  return FlipCard(
-                    flipOnTouch: false,
-                    direction: FlipDirection.VERTICAL,
-                    autoFlipDuration: Duration(milliseconds: 500 * index),
-                    front: Container(
-                      height: height,
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      margin: const EdgeInsets.all(10),
-                    ),
-                    back: Container(
-                      height: height,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(categories[index]['image']!),
-                          fit: BoxFit.cover,
-                          colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(0.38),
-                            BlendMode.darken,
-                          ),
+                  return InkWell(
+                    onTap: () {
+                      if (categories[index]['name']!.contains('Sushi')) {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Sushi()));
+                      }
+                    },
+                    child: FlipCard(
+                      flipOnTouch: false,
+                      direction: FlipDirection.VERTICAL,
+                      autoFlipDuration: Duration(milliseconds: 500 * index),
+                      front: Container(
+                        height: height,
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                        borderRadius: BorderRadius.circular(20),
+                        margin: const EdgeInsets.all(10),
                       ),
-                      margin: const EdgeInsets.all(10),
-                      child: Align(
-                        alignment: const Alignment(0, 0.8),
-                        child: Text(
-                          categories[index]['name']!,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                      back: Container(
+                        height: height,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(categories[index]['image']!),
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(
+                              Colors.black.withOpacity(0.38),
+                              BlendMode.darken,
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        margin: const EdgeInsets.all(10),
+                        child: Align(
+                          alignment: const Alignment(0, 0.8),
+                          child: Text(
+                            categories[index]['name']!,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
