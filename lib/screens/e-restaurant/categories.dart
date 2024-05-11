@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:reflectiq_designs/screens/e-restaurant/sushi.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/other_products/other_products.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/pizza/pizza.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/sushi/sushi.dart';
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -156,7 +158,13 @@ class _CategoriesState extends State<Categories> with SingleTickerProviderStateM
                     onTap: () {
                       if (categories[index]['name']!.contains('Sushi')) {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => Sushi()));
+                        return;
                       }
+                      if (categories[index]['name']!.contains('Pizza')) {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Pizza()));
+                        return;
+                      }
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const OtherProducts()));
                     },
                     child: FlipCard(
                       flipOnTouch: false,

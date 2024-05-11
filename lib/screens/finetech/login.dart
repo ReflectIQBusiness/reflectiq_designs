@@ -113,7 +113,7 @@ class _LoginState extends State<Login> {
             //button
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xff31A062),
+                backgroundColor: const Color(0xff31A062),
                 foregroundColor: Colors.white,
                 maximumSize: Size(MediaQuery.of(context).size.width / 1.2, 60),
                 minimumSize: Size(MediaQuery.of(context).size.width / 1.2, 60),
