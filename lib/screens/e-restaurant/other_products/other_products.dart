@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/cart_provider.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/cart_widget.dart';
 
 class OtherProducts extends StatefulWidget {
   const OtherProducts({super.key});
@@ -13,60 +16,64 @@ class _OtherProductsState extends State<OtherProducts> {
     {
       'name': 'Spaghetti Carbonara',
       'image': 'https://www.aheadofthyme.com/wp-content/uploads/2021/01/spaghetti-carbonara.jpg',
-      'price': '12.99',
+      'price': 12.99,
       'quantity': 1,
       'description':
           'Spaghetti Carbonara is a classic pasta dish that is creamy, rich, and comforting. The sauce is made with pancetta, eggs, and cheese. It is a simple and delicious recipe that is perfect for a weeknight dinner.',
-      'isFavourite': false
+      'isFavourite': false,
+      'category': 'Pasta'
     },
     {
       'name': 'Penne Arrabiata',
       'image': 'https://www.saltandlavender.com/wp-content/uploads/2019/04/easy-pasta-arrabiata-recipe-1-768x1152.jpg',
-      'price': '10.99',
+      'price': 10.99,
       'quantity': 1,
       'description':
           'Penne Arrabiata is a spicy pasta dish that is made with penne pasta, tomatoes, garlic, and red pepper flakes. It is a simple and delicious recipe that is perfect for a weeknight dinner.',
       'isFavourite': false,
+      'category': 'Pasta'
     },
     {
       'name': 'Fettuccine Alfredo',
       'image': 'https://www.modernhoney.com/wp-content/uploads/2018/08/Fettuccine-Alfredo-Recipe-1-1200x1182.jpg',
-      'price': '14.99',
+      'price': 14.99,
       'quantity': 1,
       'description':
           'Fettuccine Alfredo is a classic pasta dish that is made with fettuccine pasta, butter, cream, and Parmesan cheese. It is a simple and delicious recipe that is perfect for a weeknight dinner.',
       'isFavourite': false,
+      'category': 'Pasta'
     },
     {
       'name': 'Lasagna',
       'image': 'https://us.silverfernfarms.com/cdn/shop/articles/Beef-and-Spinach-Lasagna_3024x.png?v=1599186173',
-      'price': '15.99',
+      'price': 15.99,
       'quantity': 1,
       'description':
           'Lasagna is a classic pasta dish that is made with layers of pasta, meat sauce, and cheese. It is a simple and delicious recipe that is perfect for a weeknight dinner.',
       'isFavourite': false,
+      'category': 'Pasta'
     },
     {
       'name': 'Ravioli',
       'image': 'https://cdn11.bigcommerce.com/s-cjh14ahqln/product_images/uploaded_images/cheese-ravioli-2-web.jpg',
-      'price': '13.99',
+      'price': 13.99,
       'quantity': 1,
       'description':
           'Ravioli is a classic pasta dish that is made with pasta dough and a filling of meat, cheese, or vegetables. It is a simple and delicious recipe that is perfect for a weeknight dinner.',
       'isFavourite': false,
+      'category': 'Pasta'
     },
     {
       'name': 'Pasta Primavera',
       'image': 'https://thecozycook.com/wp-content/uploads/2024/02/Pasta-Primavera-1-.jpg',
-      'price': '11.99',
+      'price': 11.99,
       'quantity': 1,
       'description':
           'Pasta Primavera is a classic pasta dish that is made with pasta, vegetables, and a light cream sauce. It is a simple and delicious recipe that is perfect for a weeknight dinner.',
       'isFavourite': false,
+      'category': 'Pasta'
     }
   ];
-
-  final List<Map<String, dynamic>> cart = [];
 
   @override
   Widget build(BuildContext context) {
@@ -78,18 +85,7 @@ class _OtherProductsState extends State<OtherProducts> {
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back, color: Colors.white),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Badge(
-              label: Text(
-                cart.isEmpty ? '0' : cart.map((e) => e['quantity']).reduce((value, element) => value + element).toString(),
-                style: const TextStyle(color: Colors.white),
-              ),
-              child: const Icon(Icons.shopping_cart, color: Colors.deepOrange),
-            ),
-          ),
-        ],
+        actions: [CartIcon()],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,8 +147,10 @@ class _OtherProductsState extends State<OtherProducts> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () => addToCart(index),
-                              icon: const Icon(CupertinoIcons.add_circled, size: 28, color: Colors.white),
+                              onPressed: () {
+                                showPastaDetails(context, index);
+                              },
+                              icon: const Icon(CupertinoIcons.arrow_up_left_arrow_down_right, size: 28, color: Colors.white),
                             ),
                           ],
                         ),
@@ -229,7 +227,8 @@ class _OtherProductsState extends State<OtherProducts> {
                       const Spacer(),
                       ElevatedButton(
                         onPressed: () {
-                          addOrUpdateCart(index);
+                          final cartProvider = Provider.of<CartProvider>(context, listen: false);
+                          cartProvider.addOrUpdateCart(pastas[index]);
                           Navigator.pop(context);
                         },
                         style: ButtonStyle(
@@ -253,24 +252,5 @@ class _OtherProductsState extends State<OtherProducts> {
     setState(() {
       pastas[index]['isFavourite'] = !pastas[index]['isFavourite'];
     });
-  }
-
-  void addToCart(int index) {
-    setState(() {
-      cart.add(pastas[index]);
-    });
-  }
-
-  void addOrUpdateCart(int index) {
-    final existingItemIndex = cart.indexWhere((item) => item['name'] == pastas[index]['name']);
-    if (existingItemIndex != -1) {
-      setState(() {
-        cart[existingItemIndex]['quantity'] = pastas[index]['quantity'];
-      });
-    } else {
-      setState(() {
-        cart.add(Map.from(pastas[index]));
-      });
-    }
   }
 }

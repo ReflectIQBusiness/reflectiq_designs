@@ -1,7 +1,9 @@
 import 'dart:math';
-
 import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/cart_provider.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/cart_widget.dart';
 
 class Pizza extends StatefulWidget {
   const Pizza({Key? key}) : super(key: key);
@@ -11,97 +13,141 @@ class Pizza extends StatefulWidget {
 }
 
 class _PizzaState extends State<Pizza> {
-  List pizzas = [
+  List<Map<String, dynamic>> pizzas = [
     {
       'name': 'Margherita',
-      'price': 12.99,
+      'basePrice': 12.99,
+      'size': 'S',
       'quantity': 1,
-      'description': 'This pizza is made with fresh tomatoes,mozzarella cheese, fresh basil, salt, and extra-virgin olive oil.',
+      'description': 'This pizza is made with fresh tomatoes, mozzarella cheese, fresh basil, salt, and extra-virgin olive oil.',
       'isSelected': true,
       'image':
           'https://www.foodandwine.com/thmb/7A7CYdDEKJUUhNcLSrlZ5N8wbHo=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/mozzarella-pizza-margherita-FT-RECIPE0621-11fa41ceb1a5465d9036a23da87dd3d4.jpg',
+      'category': 'pizza',
     },
     {
       'name': 'Pepperoni',
-      'price': 14.99,
+      'basePrice': 14.99,
+      'size': 'S',
       'quantity': 1,
       'description': 'This pizza contains pepperoni, mozzarella cheese, and tomato sauce.',
       'isSelected': false,
       'image': 'https://admin.screaminsicilian.com/wp-content/uploads/2020/08/original_holypepperoni_overhead.png',
+      'category': 'pizza',
     },
     {
       'name': 'Veggie Lovers',
-      'price': 20.99,
+      'basePrice': 20.99,
+      'size': 'S',
       'quantity': 1,
       'description':
-          'Veggie Lovers contains fresh tomatoes,mozzarella cheese, fresh basil, salt, and extra-virgin olive oil, fresh vegetables',
+          'Veggie Lovers contains fresh tomatoes, mozzarella cheese, fresh basil, salt, and extra-virgin olive oil, fresh vegetables',
       'isSelected': false,
       'image': 'https://pizzrella.com/cdn/shop/files/Veg1-PhotoRoom.png-PhotoRoom.png?v=1690390795',
+      'category': 'pizza',
     },
     {
       'name': 'Meat Lovers',
-      'price': 22.99,
+      'basePrice': 22.99,
+      'size': 'S',
       'quantity': 1,
-      'description': 'This pizza is made with fresh tomatoes,mozzarella cheese, fresh basil, salt, and extra-virgin olive oil.',
+      'description': 'This pizza is made with fresh tomatoes, mozzarella cheese, fresh basil, salt, and extra-virgin olive oil.',
       'isSelected': false,
       'image': 'https://napolipizzalv.com/wp-content/uploads/2019/10/DSC_0956-min.png',
+      'category': 'pizza',
     },
     {
       'name': 'BBQ Chicken',
-      'price': 24.99,
+      'basePrice': 24.99,
+      'size': 'S',
       'quantity': 1,
-      'description': 'This pizza is made with fresh tomatoes,mozzarella cheese, fresh basil, salt, and extra-virgin olive oil.',
+      'description': 'This pizza is made with fresh tomatoes, mozzarella cheese, fresh basil, salt, and extra-virgin olive oil.',
       'isSelected': false,
       'image': 'https://serenetrail.com/wp-content/uploads/2022/11/Up-close-view-of-bbq-chicken-pizza.jpg',
+      'category': 'pizza',
     },
     {
       'name': 'Supreme',
-      'price': 26.99,
+      'basePrice': 26.99,
+      'size': 'S',
       'quantity': 1,
-      'description': 'This pizza is made with fresh tomatoes,mozzarella cheese, fresh basil, salt, and extra-virgin olive oil.',
+      'description': 'This pizza is made with fresh tomatoes, mozzarella cheese, fresh basil, salt, and extra-virgin olive oil.',
       'isSelected': false,
       'image': 'https://napolipizzalv.com/wp-content/uploads/2019/10/DSC_0905-min.png',
+      'category': 'pizza',
     }
   ];
-  List cart = [];
-  List pizzaSizes = [
+
+  List<Map<String, dynamic>> pizzaSizes = [
     {
       'size': 'Small',
       'symbol': 'S',
-      'price': 0.00,
+      'extraPrice': 0.00,
       'radius': 65,
       'isSelected': true,
     },
     {
       'size': 'Medium',
       'symbol': 'M',
-      'price': 15.00,
+      'extraPrice': 2.00,
       'radius': 80,
       'isSelected': false,
     },
     {
       'size': 'Large',
       'symbol': 'L',
-      'price': 20.00,
+      'extraPrice': 4.00,
       'radius': 95,
       'isSelected': false,
     }
   ];
-  var selectedPizza;
+
+  late Map<String, dynamic> selectedPizza;
+
   @override
   void initState() {
     selectedPizza = pizzas.firstWhere((element) => element['isSelected'] == true);
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  double calculatePrice() {
+    final selectedSize = pizzaSizes.firstWhere((element) => element['isSelected'] == true);
+    return selectedPizza['basePrice'] + selectedSize['extraPrice'];
   }
 
-  addPrice(int index) {
-    print(selectedPizza['price']);
-    return selectedPizza['price'] + pizzaSizes[index]['price'];
+  void addToCart() {
+    final selectedSize = pizzaSizes.firstWhere((element) => element['isSelected'] == true);
+    final cartProduct = {
+      'name': selectedPizza['name'],
+      'price': calculatePrice(),
+      'size': selectedSize['symbol'],
+      'quantity': selectedPizza['quantity'],
+      'category': selectedPizza['category'],
+      'image': selectedPizza['image'],
+      'description': selectedPizza['description'],
+    };
+
+    Provider.of<CartProvider>(context, listen: false).addOrUpdateCart(cartProduct);
+  }
+
+  void resetSizeAndQuantity() {
+    setState(() {
+      for (var size in pizzaSizes) {
+        size['isSelected'] = size['symbol'] == 'S';
+      }
+      selectedPizza['size'] = 'S';
+      selectedPizza['quantity'] = 1;
+    });
+  }
+
+  void selectSize(String sizeSymbol) {
+    setState(() {
+      for (var size in pizzaSizes) {
+        size['isSelected'] = size['symbol'] == sizeSymbol;
+      }
+      selectedPizza['size'] = sizeSymbol;
+      selectedPizza['quantity'] = 1; // Reset quantity when size changes
+    });
   }
 
   @override
@@ -120,21 +166,7 @@ class _PizzaState extends State<Pizza> {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Badge(
-              label: Text(
-                cart.isEmpty ? '0' : cart.map((e) => e['quantity']).reduce((value, element) => value + element).toString(),
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              child: const Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          CartIcon(),
         ],
       ),
       body: SingleChildScrollView(
@@ -160,7 +192,7 @@ class _PizzaState extends State<Pizza> {
               origin: const Offset(0, 0),
               innerRadius: pizzaSizes.firstWhere((element) => element['isSelected'] == true)['radius'].toDouble(),
               onDragUpdate: (PolarCoord updateCoord) {
-                double angle = updateCoord.angle % (2 * pi); // Ensure angle is within [0, 2*pi)
+                double angle = updateCoord.angle % (2 * pi);
                 int selectedIndex = ((angle / (2 * pi)) * pizzas.length).round() % pizzas.length;
 
                 setState(() {
@@ -168,6 +200,7 @@ class _PizzaState extends State<Pizza> {
                     pizzas[i]['isSelected'] = i == selectedIndex;
                   }
                   selectedPizza = pizzas[selectedIndex];
+                  resetSizeAndQuantity();
                 });
               },
               centerWidget: CircleAvatar(
@@ -180,11 +213,12 @@ class _PizzaState extends State<Pizza> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      selectedPizza = pizzas[index];
-                      pizzas.forEach((element) {
-                        element['isSelected'] = false;
-                      });
+                      for (int i = 0; i < pizzas.length; i++) {
+                        pizzas[i]['isSelected'] = false;
+                      }
                       pizzas[index]['isSelected'] = true;
+                      selectedPizza = pizzas[index];
+                      resetSizeAndQuantity();
                     });
                   },
                   child: CircleAvatar(
@@ -207,25 +241,21 @@ class _PizzaState extends State<Pizza> {
                     children: List.generate(pizzaSizes.length, (index) {
                       return GestureDetector(
                         onTap: () {
-                          setState(() {
-                            pizzaSizes.forEach((element) {
-                              element['isSelected'] = false;
-                            });
-                            pizzaSizes[index]['isSelected'] = true;
-                          });
+                          selectSize(pizzaSizes[index]['symbol']);
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8),
                           child: CircleAvatar(
-                              backgroundColor: pizzaSizes[index]['isSelected'] ? Colors.orange : Colors.white,
-                              child: Text(
-                                pizzaSizes[index]['symbol'],
-                                style: TextStyle(
-                                  color: pizzaSizes[index]['isSelected'] ? Colors.white : Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
+                            backgroundColor: pizzaSizes[index]['isSelected'] ? Colors.orange : Colors.white,
+                            child: Text(
+                              pizzaSizes[index]['symbol'],
+                              style: TextStyle(
+                                color: pizzaSizes[index]['isSelected'] ? Colors.white : Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ),
                       );
                     }),
@@ -243,9 +273,7 @@ class _PizzaState extends State<Pizza> {
                         ),
                       ),
                       Text(
-                        "${(addPrice(
-                              pizzaSizes.indexWhere((element) => element['isSelected'] == true),
-                            ) * selectedPizza['quantity']).toStringAsFixed(2)} MAD",
+                        "${(calculatePrice() * selectedPizza['quantity']).toStringAsFixed(2)} MAD",
                         style: const TextStyle(
                           color: Color.fromARGB(255, 223, 143, 63),
                           fontSize: 20,
@@ -266,21 +294,19 @@ class _PizzaState extends State<Pizza> {
                   Row(
                     children: [
                       IconButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 223, 143, 63),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              if (selectedPizza['quantity'] > 1) {
-                                selectedPizza['quantity']--;
-                              }
-                            });
-                          },
-                          icon: const Icon(
-                            Icons.remove,
-                            color: Colors.white,
-                          )),
-                      const SizedBox(width: 10), // SizedBox
+                        onPressed: () {
+                          setState(() {
+                            if (selectedPizza['quantity'] > 1) {
+                              selectedPizza['quantity']--;
+                            }
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.remove,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
                       Text(
                         selectedPizza['quantity'].toString(),
                         style: const TextStyle(
@@ -289,23 +315,21 @@ class _PizzaState extends State<Pizza> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 10), // SizedBox
-
+                      const SizedBox(width: 10),
                       IconButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 223, 143, 63),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              selectedPizza['quantity']++;
-                            });
-                          },
-                          icon: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          )),
+                        onPressed: () {
+                          setState(() {
+                            selectedPizza['quantity']++;
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                      ),
                       const Spacer(),
                       ElevatedButton(
+                        onPressed: addToCart,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 223, 143, 63),
                           foregroundColor: Colors.white,
@@ -318,11 +342,6 @@ class _PizzaState extends State<Pizza> {
                             borderRadius: BorderRadius.circular(100),
                           ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            addToCartOrUpdate(selectedPizza);
-                          });
-                        },
                         child: const Row(
                           children: [
                             Text('Add to cart',
@@ -347,18 +366,5 @@ class _PizzaState extends State<Pizza> {
         ),
       ),
     );
-  }
-
-  void addToCartOrUpdate(selectedPizza) {
-    var pizza = cart.firstWhere(
-        (element) =>
-            element['name'] == selectedPizza['name'] &&
-            element['size'] == pizzaSizes.firstWhere((element) => element['isSelected'] == true)['size'],
-        orElse: () => null);
-    if (pizza != null) {
-      pizza['quantity'] += selectedPizza['quantity'];
-    } else {
-      cart.add(selectedPizza);
-    }
   }
 }

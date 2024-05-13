@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/cart_widget.dart';
 import 'package:reflectiq_designs/screens/e-restaurant/sushi/detail_page.dart';
 
 class Sushi extends StatefulWidget {
@@ -17,23 +18,29 @@ class _SushiState extends State<Sushi> with SingleTickerProviderStateMixin {
     {
       'name': 'Sushi',
       'image': 'assets/food/Sushi.png',
+      'quantity': 1,
       'description':
           'Sushi is a Japanese dish of prepared vinegared rice, usually with some sugar and salt, accompanying a variety of ingredients, such as seafood, vegetables, and occasionally tropical fruits. Styles of sushi and its presentation vary widely, but the one key ingredient is "sushi rice", also referred to as shari, or sumeshi.',
-      'price': '120.99',
+      'price': 120.99,
+      'category': 'Sushi & Asian Cuisine',
     },
     {
       'name': 'Poke Bowl',
+      'quantity': 1,
       'image': 'assets/food/poke_bowl.png',
       'description':
           'Poke is a raw fish salad served as an appetizer in Hawaiian cuisine. Poke is the Hawaiian verb for "section" or "to slice or cut". Traditional forms are aku and he\'e. He\'e poke is usually called by its Japanese name Tako Poke, except in places like the island of Niʻihau where the Hawaiian language is spoken.',
-      'price': '100.99',
+      'price': 100.99,
+      'category': 'Sushi & Asian Cuisine',
     },
     {
       'name': 'Chicken curry',
+      'quantity': 1,
       'image': 'assets/food/chicken.png',
       'description':
           'Curry is a variety of dishes originating in the Indian subcontinent that use a complex combination of spices or herbs, usually including ground turmeric, cumin, coriander, ginger, and fresh or dried chilies. Curry is generally prepared in a sauce.',
-      'price': '100.00',
+      'price': 100.00,
+      'category': 'Sushi & Asian Cuisine',
     }
   ];
   AnimationController? control;
@@ -76,13 +83,7 @@ class _SushiState extends State<Sushi> with SingleTickerProviderStateMixin {
             ),
           ),
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.shopping_cart,
-                color: Colors.deepOrange,
-              ),
-            ),
+            CartIcon(),
           ],
         ),
         body: Column(

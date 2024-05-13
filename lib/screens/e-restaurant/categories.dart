@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/cart_widget.dart';
 import 'package:reflectiq_designs/screens/e-restaurant/other_products/other_products.dart';
 import 'package:reflectiq_designs/screens/e-restaurant/pizza/pizza.dart';
 import 'package:reflectiq_designs/screens/e-restaurant/sushi/sushi.dart';
@@ -76,14 +77,8 @@ class _CategoriesState extends State<Categories> with SingleTickerProviderStateM
               ),
               Positioned(
                 top: 50,
-                right: 20,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.shopping_cart,
-                    color: Colors.deepOrange,
-                  ),
-                ),
+                right: 10,
+                child: CartIcon(),
               ),
               const Positioned(
                 top: 100,

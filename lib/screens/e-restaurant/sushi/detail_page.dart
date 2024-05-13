@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/cart_provider.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/cart_widget.dart';
 
 class DetailPage extends StatefulWidget {
   final product;
@@ -30,21 +33,7 @@ class _DetailPageState extends State<DetailPage> {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Badge(
-              label: Text(
-                cart.length.toString(),
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              child: const Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          CartIcon(),
         ],
       ),
       body: Column(
@@ -109,7 +98,7 @@ class _DetailPageState extends State<DetailPage> {
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              widget.product['price'] + ' MAD',
+                              widget.product['price'].toString() + ' MAD',
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
@@ -152,9 +141,8 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ),
                   onPressed: () {
-                    setState(() {
-                      cart.add(widget.product);
-                    });
+                    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+                    cartProvider.addOrUpdateCart(widget.product);
                   },
                   child: const Text('Add to cart',
                       style: TextStyle(
