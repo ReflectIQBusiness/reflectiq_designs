@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/cart/checkout_page.dart';
 import 'package:reflectiq_designs/screens/e-restaurant/cart_provider.dart';
+import 'package:reflectiq_designs/screens/e-restaurant/shimmer_arrows.dart';
 
 class Cart extends StatelessWidget {
   @override
@@ -230,18 +232,18 @@ class Cart extends StatelessWidget {
                   return (cart.isNotEmpty)
                       ? ElevatedButton(
                           onPressed: () {
-                            // Define your checkout action here
+                            //CheckoutPage
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const CheckoutPage(),
+                              ),
+                            );
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 44, 42, 42)),
                             padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 30, vertical: 15)),
                           ),
-                          child: const Text('Checkout',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              )),
+                          child: ThreeShimmerArrows(),
                         )
                       : const SizedBox(
                           height: 30,

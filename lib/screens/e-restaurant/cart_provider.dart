@@ -44,4 +44,9 @@ class CartProvider extends ChangeNotifier {
     if (_cart.isEmpty) return 0;
     return _cart.fold(0, (sum, item) => sum + item['price'] * item['quantity']);
   }
+
+  void clearCart() {
+    _cart.clear();
+    notifyListeners();
+  }
 }

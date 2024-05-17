@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reflectiq_designs/screens/e-restaurant/categories.dart';
 import 'package:reflectiq_designs/screens/finance/main_page.dart';
+import 'package:reflectiq_designs/screens/pedro_pedro.dart';
 import 'package:reflectiq_designs/screens/piano.dart';
 
 void main() {
@@ -20,6 +21,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
           useMaterial3: true,
         ),
-        home: const Categories());
+        home: const PedroPedroTrend());
   }
 }
